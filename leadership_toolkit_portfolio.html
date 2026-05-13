@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Toolkit — HR Case Study</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0f1f4a;--mid:#1a3370;--gold:#f0a500;--green:#0a8c64;--purple:#7f77dd;--bg:#f4f6fb;--card:#fff;--border:#e4e9f2;--text:#1a1a2e;--muted:#6b7280;--light:#f9fafb}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* NAV */
+.nav-bar{position:sticky;top:0;z-index:100;background:rgba(15,31,74,0.97);backdrop-filter:blur(12px);padding:0 32px;display:flex;align-items:center;gap:0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.nav-logo{font-size:13px;font-weight:600;color:#fff;padding:18px 20px 18px 0;margin-right:12px;border-right:1px solid rgba(255,255,255,0.12);white-space:nowrap}
+.nav-logo span{color:var(--gold)}
+.nav-tabs{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;padding:12px 0}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;color:rgba(255,255,255,0.55);border:none;background:transparent;transition:all .2s;white-space:nowrap;text-decoration:none}
+.nav-tab:hover{color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08)}
+.nav-tab.active{background:rgba(240,165,0,0.18);color:var(--gold)}
+.nav-tab i{font-size:14px}
+.nav-tab .tab-count{font-size:9px;padding:1px 6px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);margin-left:2px}
+.nav-tab.active .tab-count{background:rgba(240,165,0,0.25);color:var(--gold)}
+
+/* PAGE */
+.page{max-width:960px;margin:0 auto;padding:32px 24px 60px}
+
+/* HERO */
+.hero{background:var(--navy);border-radius:16px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(240,165,0,0.06)}
+.hero::after{content:'';position:absolute;right:60px;bottom:-60px;width:140px;height:140px;border-radius:50%;background:rgba(26,51,112,0.5)}
+.hero-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hero-title{font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:13px;color:#a8bce0;line-height:1.6;margin-bottom:20px;max-width:520px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:10px;padding:4px 12px;border-radius:12px;border:1px solid rgba(240,165,0,0.35);color:var(--gold)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:transform .2s}
+.stat:hover{transform:translateY(-2px)}
+.stat-n{font-size:30px;font-weight:700;margin-bottom:4px}
+.stat-l{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* SECTIONS */
+.section{margin-bottom:28px;scroll-margin-top:72px}
+.section-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-hd i{font-size:20px}
+.section-hd h2{font-size:17px;font-weight:600;color:var(--text)}
+.section-tag{font-size:9px;font-weight:600;padding:3px 9px;border-radius:6px;margin-left:auto;text-transform:uppercase;letter-spacing:.5px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card+.card{margin-top:12px}
+.card-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.card-sub{font-size:10px;color:var(--muted);margin-bottom:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info{background:var(--light);border-radius:10px;padding:14px;border-left:3px solid var(--navy)}
+.info.gold{border-color:var(--gold);background:#fff8e6}
+.info h4{font-size:11px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.info.gold h4{color:#7a5000}
+.info p{font-size:10.5px;color:var(--muted);line-height:1.5}
+.info.gold p{color:#7a5000}
+
+/* CALLOUT */
+.callout{background:#e6f1fb;border-left:4px solid var(--navy);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:16px;font-size:11.5px;color:var(--mid);line-height:1.6;font-style:italic}
+
+/* RESEARCH BULLETS */
+.r-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.r-item{display:flex;align-items:flex-start;gap:10px;background:var(--light);border-radius:8px;padding:10px 14px;border:1px solid var(--border)}
+.r-icon{width:28px;height:28px;border-radius:7px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-icon i{font-size:14px;color:var(--gold)}
+.r-body h4{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px}
+.r-body p{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.ld{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+
+/* DOMAIN GRID */
+.domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.domain{border-radius:10px;padding:14px;border:1px solid var(--border)}
+.domain.tm{background:#e6f1fb;border-color:#b5d4f4}
+.domain.ip{background:#faeeda;border-color:#fac775}
+.domain.st{background:#e1f5ee;border-color:#9fe1cb}
+.domain h4{font-size:11px;font-weight:600;margin-bottom:6px}
+.domain.tm h4{color:#0c447c}
+.domain.ip h4{color:#633806}
+.domain.st h4{color:#085041}
+.domain ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.domain ul li{font-size:9.5px;color:var(--muted);padding-left:10px;position:relative}
+.domain ul li::before{content:'·';position:absolute;left:2px}
+.center-label{background:var(--navy);color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:11px;font-weight:600;margin-top:10px}
+.center-label span{color:var(--gold)}
+
+/* FRAMEWORK CARDS */
+.fw-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fw-card{background:var(--light);border-radius:10px;padding:14px;border:1px solid var(--border)}
+.fw-card h4{font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.fw-card h4 i{font-size:13px;color:var(--gold)}
+.fw-card p{font-size:10px;color:var(--muted);line-height:1.5}
+
+/* CHECKLISTS */
+.checklist{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px}
+.cl-hd{padding:14px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .15s}
+.cl-hd:hover{background:var(--light)}
+.cl-hd i.cl-icon{font-size:18px}
+.cl-hd h3{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.cl-hd .cl-count{font-size:9px;padding:2px 8px;border-radius:6px;background:var(--light);color:var(--muted);border:1px solid var(--border)}
+.cl-hd .cl-arrow{font-size:14px;color:var(--muted);transition:transform .25s;margin-left:4px}
+.cl-hd.open .cl-arrow{transform:rotate(180deg)}
+.cl-body{padding:0 18px 16px;display:none}
+.cl-body.open{display:block}
+.cl-items{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.cl-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;background:var(--light);border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.cl-item:hover{border-color:#b5d4f4;background:#e6f1fb}
+.cl-item.done{background:#e1f5ee;border-color:#9fe1cb}
+.cl-item.done .cl-check{background:var(--green);border-color:var(--green)}
+.cl-item.done .cl-check i{opacity:1}
+.cl-item.done .cl-text{color:var(--muted);text-decoration:line-through}
+.cl-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.cl-check i{font-size:11px;color:#fff;opacity:0}
+.cl-text{font-size:11px;color:var(--text);flex:1;line-height:1.4}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;margin:10px 0 14px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease;width:0%}
+.progress-label{font-size:9.5px;color:var(--muted);margin-bottom:6px}
+
+/* IMPACT */
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.impact-card{border-radius:10px;padding:14px}
+.impact-card.pos{background:#e1f5ee;border:1px solid #9fe1cb}
+.impact-card.ref{background:#eeedfe;border:1px solid #afa9ec}
+.impact-card h4{font-size:10px;font-weight:600;margin-bottom:8px}
+.impact-card.pos h4{color:#085041}
+.impact-card.ref h4{color:#3c3489}
+.impact-item{display:flex;gap:7px;margin-bottom:5px;font-size:10px;line-height:1.4}
+.impact-card.pos .impact-item{color:#085041}
+.impact-card.ref .impact-item{color:#3c3489}
+.impact-item i{font-size:11px;flex-shrink:0;margin-top:1px}
+
+/* SKILLS */
+.skills-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.skill{font-size:10px;padding:4px 10px;border-radius:7px;background:var(--light);color:var(--muted);border:1px solid var(--border)}
+
+/* FOOTER */
+.footer{font-size:9.5px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.6;font-style:italic}
+
+/* TABLER ICONS */
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css');
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="nav-logo">📋 Leadership <span>Toolkit</span></div>
+  <div class="nav-tabs">
+    <a class="nav-tab active" href="#overview" onclick="setActive(this)">
+      <i class="ti ti-layout-dashboard"></i> Overview
+      <span class="tab-count">4 stats</span>
+    </a>
+    <a class="nav-tab" href="#research" onclick="setActive(this)">
+      <i class="ti ti-chart-pie"></i> Research & Data
+      <span class="tab-count">3 charts</span>
+    </a>
+    <a class="nav-tab" href="#built" onclick="setActive(this)">
+      <i class="ti ti-tool"></i> What I Built
+      <span class="tab-count">3 models</span>
+    </a>
+    <a class="nav-tab" href="#checklists" onclick="setActive(this)">
+      <i class="ti ti-checklist"></i> Checklists
+      <span class="tab-count">3 templates</span>
+    </a>
+    <a class="nav-tab" href="#impact" onclick="setActive(this)">
+      <i class="ti ti-chart-line"></i> Impact & Skills
+    </a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">HR Portfolio · People & Culture · First Edition 2024</div>
+    <div class="hero-title">Leadership Toolkit<br>Case Study</div>
+    <div class="hero-sub">A research-led initiative equipping managers with practical leadership frameworks, data-backed guidance, and step-by-step HR procedures — built for a high-growth, remote-first AI/tech startup.</div>
+    <div class="hero-pills">
+      <span class="pill">HR Generalist</span>
+      <span class="pill">Project Lead</span>
+      <span class="pill">AI/tech startup</span>
+      <span class="pill">Remote-first</span>
+      <span class="pill">2024</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section" id="overview">
+    <div class="section-hd">
+      <i class="ti ti-layout-dashboard" style="color:var(--navy)"></i>
+      <h2>Overview</h2>
+      <span class="section-tag" style="background:#e6f1fb;color:#0c447c">01</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n" style="color:var(--navy)">18</div><div class="stat-l">Managers & team leads researched</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--gold)">3</div><div class="stat-l">Leadership domains mapped</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--green)">6</div><div class="stat-l">HR procedures documented</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--purple)">7</div><div class="stat-l">Core values translated into behaviours</div></div>
+    </div>
+
+    <div class="callout">Leadership was inconsistent across every team. The organisation was scaling fast with no shared resource, no documented procedures, and no common language — every procedural question came back to People & Culture reactively.</div>
+
+    <div class="two-col">
+      <div class="info"><h4>The gap</h4><p>No centralised guidance for managers. New team leads onboarding at pace with nothing to reference.</p></div>
+      <div class="info gold"><h4>The opportunity</h4><p>Build a practical, research-backed resource that reflected how leadership actually worked in a fast-moving startup.</p></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: RESEARCH & DATA -->
+  <div class="section" id="research">
+    <div class="section-hd">
+      <i class="ti ti-chart-pie" style="color:var(--gold)"></i>
+      <h2>Research & data</h2>
+      <span class="section-tag" style="background:#faeeda;color:#633806">02</span>
+    </div>
+
+    <div class="r-list">
+      <div class="r-item"><div class="r-icon"><i class="ti ti-users"></i></div><div class="r-body"><h4>Focus groups</h4><p>Surfaced shared challenges and cultural norms across departments</p></div></div>
+      <div class="r-item"><div class="r-icon"><i class="ti ti-message-circle"></i></div><div class="r-body"><h4>1:1 interviews</h4><p>Captured where managers felt most unsupported and uncertain</p></div></div>
+      <div class="r-item"><div class="r-icon"><i class="ti ti-clipboard-list"></i></div><div class="r-body"><h4>Structured survey</h4><p>Quantified leadership styles and mapped competency levels across 18 managers</p></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Leadership style distribution</div>
+        <div class="card-sub">Pie chart · Internal survey · n=18</div>
+        <div class="legend">
+          <span class="leg"><span class="ld" style="background:var(--navy)"></span>Adaptive/Agile 55.6%</span>
+          <span class="leg"><span class="ld" style="background:var(--gold)"></span>Tactical 38.9%</span>
+          <span class="leg"><span class="ld" style="background:var(--green)"></span>Visionary 5.6%</span>
+        </div>
+        <div style="position:relative;height:200px"><canvas id="pieChart" role="img" aria-label="Pie chart: Adaptive/Agile 55.6%, Tactical 38.9%, Visionary 5.6%">Leadership styles data</canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Core competency scores</div>
+        <div class="card-sub">Radar analysis · Figure 2 · Score out of 5.0</div>
+        <div style="position:relative;height:230px"><canvas id="radarChart" role="img" aria-label="Radar chart of 5 leadership competencies">Competency radar data</canvas></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="card-title">Competency breakdown</div>
+      <div class="card-sub">Horizontal bar · scores out of 5.0</div>
+      <div style="position:relative;height:180px"><canvas id="barChart" role="img" aria-label="Horizontal bar chart of competency scores">Competency scores</canvas></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: WHAT I BUILT -->
+  <div class="section" id="built">
+    <div class="section-hd">
+      <i class="ti ti-tool" style="color:var(--green)"></i>
+      <h2>What I built</h2>
+      <span class="section-tag" style="background:#e1f5ee;color:#085041">03</span>
+    </div>
+
+    <div class="domain-grid">
+      <div class="domain tm">
+        <h4>🔵 Team management</h4>
+        <ul>
+          <li>Intern check-ins</li>
+          <li>Remote working</li>
+          <li>SMART goals</li>
+          <li>Delegation</li>
+          <li>Conflict resolution</li>
+        </ul>
+      </div>
+      <div class="domain ip">
+        <h4>🟡 Interpersonal</h4>
+        <ul>
+          <li>Clear vision & direction</li>
+          <li>Constructive feedback</li>
+          <li>Trust-building</li>
+          <li>Inclusive culture</li>
+          <li>Effective communication</li>
+        </ul>
+      </div>
+      <div class="domain st">
+        <h4>🟢 Strategic</h4>
+        <ul>
+          <li>Knowledge transfer</li>
+          <li>Standard procedures</li>
+          <li>Task allocation</li>
+          <li>Stakeholder management</li>
+          <li>Workforce planning</li>
+        </ul>
+      </div>
+    </div>
+    <div class="center-label">⭐ Effective Leadership — <span>where all three domains intersect</span>: Delegation · Collaboration · Stakeholder Management</div>
+
+    <div class="fw-grid" style="margin-top:14px">
+      <div class="fw-card"><h4><i class="ti ti-bolt"></i>Agile Leadership Model</h4><p>Validated the dominant leadership style (55.6%) already in practice — the toolkit was built to strengthen it, not replace it with rigid process.</p></div>
+      <div class="fw-card"><h4><i class="ti ti-message-dots"></i>SBI Feedback Model</h4><p>Situation–Behaviour–Impact framework embedded in the Interpersonal domain for consistent, fair, emotionally neutral feedback delivery.</p></div>
+      <div class="fw-card"><h4><i class="ti ti-target"></i>SMART Goals</h4><p>Embedded in Team Management to help leaders set clear expectations, track progress and conduct meaningful check-in conversations.</p></div>
+      <div class="fw-card"><h4><i class="ti ti-radar"></i>Competency Radar Analysis</h4><p>Translated survey data into a visual that identified where strengths clustered and where development support was needed most.</p></div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CHECKLISTS -->
+  <div class="section" id="checklists">
+    <div class="section-hd">
+      <i class="ti ti-checklist" style="color:var(--purple)"></i>
+      <h2>Checklists & procedures</h2>
+      <span class="section-tag" style="background:#eeedfe;color:#3c3489">04</span>
+    </div>
+
+    <!-- ONBOARDING -->
+    <div class="checklist">
+      <div class="cl-hd" onclick="toggleCL(this)">
+        <i class="ti ti-user-plus cl-icon" style="color:var(--navy)"></i>
+        <h3>Onboarding checklist</h3>
+        <span class="cl-count">7 items</span>
+        <i class="ti ti-chevron-down cl-arrow"></i>
+      </div>
+      <div class="cl-body">
+        <div class="progress-label">0 of 7 completed</div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="cl-items">
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Added to department-specific onboarding Slack channel</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Attended kickoff meeting (held every other Monday)</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">New intern invited to team Slack group channel</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">One-on-one meeting scheduled to clarify expectations</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Added to relevant team workspaces (Notion, Google Drive)</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">New Intern Employee Form completed</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Introduction made at All-Hands meeting</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFBOARDING -->
+    <div class="checklist">
+      <div class="cl-hd" onclick="toggleCL(this)">
+        <i class="ti ti-door-exit cl-icon" style="color:var(--green)"></i>
+        <h3>Offboarding checklist</h3>
+        <span class="cl-count">8 items</span>
+        <i class="ti ti-chevron-down cl-arrow"></i>
+      </div>
+      <div class="cl-body">
+        <div class="progress-label">0 of 8 completed</div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="cl-items">
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Intern notified of upcoming end of term (14-day notice)</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Decision to offboard or extend confirmed</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Intern Status Change Approval Form submitted</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Slack access removed by P&C team</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Removed from Team Workspaces in Notion</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Google Drive access revoked</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Outstanding tasks reassigned to remaining team members</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Exit questionnaire sent to departing intern</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFORCE PLANNING -->
+    <div class="checklist">
+      <div class="cl-hd" onclick="toggleCL(this)">
+        <i class="ti ti-chart-bar cl-icon" style="color:var(--gold)"></i>
+        <h3>Workforce planning checklist</h3>
+        <span class="cl-count">8 items</span>
+        <i class="ti ti-chevron-down cl-arrow"></i>
+      </div>
+      <div class="cl-body">
+        <div class="progress-label">0 of 8 completed</div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="cl-items">
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Current team headcount reviewed</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Task timelines estimated (average hours per deliverable)</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Team workloads evaluated against project demands</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Performance benchmarks set using historical data</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Future headcount needs estimated based on project scope</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Workforce Planning Sheet updated and submitted to P&C</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Priority recruitment positions clearly flagged</span></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-text">Job descriptions reviewed and updated with P&C team</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: IMPACT -->
+  <div class="section" id="impact">
+    <div class="section-hd">
+      <i class="ti ti-chart-line" style="color:var(--purple)"></i>
+      <h2>Impact & skills</h2>
+      <span class="section-tag" style="background:#eeedfe;color:#3c3489">05</span>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-card pos">
+        <h4>✅ What changed</h4>
+        <div class="impact-item"><i class="ti ti-check"></i>Managers self-served routine HR queries independently for the first time</div>
+        <div class="impact-item"><i class="ti ti-check"></i>New team leads onboarded with a structured resource from day one</div>
+        <div class="impact-item"><i class="ti ti-check"></i>Research phase created cross-team reflection that hadn't existed before</div>
+      </div>
+      <div class="impact-card ref">
+        <h4>🔁 What I'd do differently</h4>
+        <div class="impact-item"><i class="ti ti-refresh"></i>Build in a 60-day post-launch survey to measure manager confidence</div>
+        <div class="impact-item"><i class="ti ti-refresh"></i>Close the feedback loop the research phase opened</div>
+        <div class="impact-item"><i class="ti ti-refresh"></i>Embed impact measurement into the project scope from the start</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Skills demonstrated</div>
+      <div class="skills-wrap">
+        <span class="skill">People research</span>
+        <span class="skill">Focus group facilitation</span>
+        <span class="skill">1:1 interviews</span>
+        <span class="skill">Survey design</span>
+        <span class="skill">Data analysis</span>
+        <span class="skill">Framework design</span>
+        <span class="skill">SOP writing</span>
+        <span class="skill">Content design</span>
+        <span class="skill">Governance planning</span>
+        <span class="skill">Competency mapping</span>
+        <span class="skill">HR operations</span>
+        <span class="skill">Stakeholder comms</span>
+        <span class="skill">Project management</span>
+        <span class="skill">Workforce planning</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">All content written at a professional summary level. No proprietary internal documentation or personally identifiable information has been reproduced.</div>
+
+</div>
+
+<script>
+function setActive(el){
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleCL(hd){
+  hd.classList.toggle('open');
+  const body=hd.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function toggleItem(item){
+  item.classList.toggle('done');
+  const cl=item.closest('.checklist');
+  const items=cl.querySelectorAll('.cl-item');
+  const done=cl.querySelectorAll('.cl-item.done').length;
+  const total=items.length;
+  const fill=cl.querySelector('.progress-fill');
+  const label=cl.querySelector('.progress-label');
+  fill.style.width=(done/total*100)+'%';
+  label.textContent=done+' of '+total+' completed';
+}
+
+window.addEventListener('scroll',()=>{
+  const sections=['overview','research','built','checklists','impact'];
+  const tabs=document.querySelectorAll('.nav-tab');
+  let current='overview';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<=100) current=id;
+  });
+  tabs.forEach(t=>{
+    const href=t.getAttribute('href').replace('#','');
+    t.classList.toggle('active',href===current);
+  });
+});
+
+const navy='#0f1f4a',gold='#f0a500',green='#0a8c64',purple='#7f77dd';
+
+new Chart(document.getElementById('pieChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Adaptive / Agile','Tactical / Task-oriented','Visionary / Strategic'],
+    datasets:[{data:[55.6,38.9,5.6],backgroundColor:[navy,gold,green],borderWidth:3,borderColor:'#fff',hoverOffset:8}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'58%',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}},
+    animation:{animateRotate:true,duration:1400}
+  }
+});
+
+new Chart(document.getElementById('radarChart'),{
+  type:'radar',
+  data:{
+    labels:['Agile Leadership','Project Mgmt','Knowledge Mgmt','Remote Working','Empowerment'],
+    datasets:[{label:'Score',data:[4.5,3.8,3.5,4.2,3.9],backgroundColor:'rgba(15,31,74,0.12)',borderColor:navy,borderWidth:2,pointBackgroundColor:gold,pointRadius:5,pointHoverRadius:7}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.r.toFixed(1)+' / 5.0'}}},
+    scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:9},color:'#999',backdropColor:'transparent'},grid:{color:'rgba(0,0,0,0.07)'},pointLabels:{font:{size:10},color:'#444'}}},
+    animation:{duration:1400}
+  }
+});
+
+new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{
+    labels:['Agile Leadership','Remote Working','Empowerment','Project Mgmt','Knowledge Mgmt'],
+    datasets:[{data:[4.5,4.2,3.9,3.8,3.5],backgroundColor:[navy,navy,gold,gold,green],borderRadius:5,borderSkipped:false}]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.x.toFixed(1)+' / 5.0'}}},
+    scales:{
+      x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#666'},max:5,min:0},
+      y:{grid:{display:false},ticks:{font:{size:10},color:'#444'}}
+    },
+    animation:{duration:1200,easing:'easeOutQuart'}
+  }
+});
+</script>
+</body>
+</html>
