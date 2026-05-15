@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Research & Data</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;padding:24px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#fff;border:1px solid #e4e9f2;border-radius:12px;padding:18px}
+.card.full{grid-column:1/-1}
+.card-title{font-size:12px;font-weight:600;color:#0f1f4a;margin-bottom:3px}
+.card-sub{font-size:10px;color:#999;margin-bottom:14px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.leg{display:flex;align-items:center;gap:5px;font-size:10.5px;color:#555}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.insight{background:#e6f1fb;border-left:3px solid #0f1f4a;border-radius:0 8px 8px 0;padding:10px 14px;font-size:11px;color:#0c447c;line-height:1.6;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="row">
+    <div class="card">
+      <div class="card-title">Leadership style distribution</div>
+      <div class="card-sub">Doughnut chart · Internal survey · n=18</div>
+      <div class="legend">
+        <span class="leg"><span class="ld" style="background:#0f1f4a"></span>Agile 55.6%</span>
+        <span class="leg"><span class="ld" style="background:#f0a500"></span>Tactical 38.9%</span>
+        <span class="leg"><span class="ld" style="background:#0a8c64"></span>Visionary 5.6%</span>
+      </div>
+      <div style="position:relative;height:200px"><canvas id="pieChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Core competency radar</div>
+      <div class="card-sub">5 leadership dimensions · Score out of 5.0</div>
+      <div style="position:relative;height:220px"><canvas id="radarChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card full">
+    <div class="card-title">Competency scores — detailed breakdown</div>
+    <div class="card-sub">Horizontal bar · ranked highest to lowest</div>
+    <div style="position:relative;height:180px"><canvas id="barChart"></canvas></div>
+  </div>
+
+  <div class="insight">💡 Key insight: 55.6% of leaders were adaptive and agile — the toolkit needed to support this flexibility, not replace it with rigid process or top-down directives.</div>
+
+</div>
+<script>
+const navy='#0f1f4a',gold='#f0a500',green='#0a8c64',purple='#7f77dd';
+
+new Chart(document.getElementById('pieChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Adaptive / Agile','Tactical / Task-oriented','Visionary / Strategic'],
+    datasets:[{data:[55.6,38.9,5.6],backgroundColor:[navy,gold,green],borderWidth:3,borderColor:'#fff',hoverOffset:8}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'60%',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}},
+    animation:{animateRotate:true,duration:1400}
+  }
+});
+
+new Chart(document.getElementById('radarChart'),{
+  type:'radar',
+  data:{
+    labels:['Agile Leadership','Project Mgmt','Knowledge Mgmt','Remote Working','Empowerment'],
+    datasets:[{label:'Score',data:[4.5,3.8,3.5,4.2,3.9],backgroundColor:'rgba(15,31,74,0.1)',borderColor:navy,borderWidth:2,pointBackgroundColor:gold,pointRadius:5,pointHoverRadius:7}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.r.toFixed(1)+' / 5.0'}}},
+    scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:9},color:'#999',backdropColor:'transparent'},grid:{color:'rgba(0,0,0,0.07)'},pointLabels:{font:{size:10},color:'#444'}}},
+    animation:{duration:1400}
+  }
+});
+
+new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{
+    labels:['Agile Leadership','Remote Working','Empowerment','Project Mgmt','Knowledge Mgmt'],
+    datasets:[{data:[4.5,4.2,3.9,3.8,3.5],backgroundColor:[navy,navy,gold,gold,green],borderRadius:5,borderSkipped:false}]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.x.toFixed(1)+' / 5.0'}}},
+    scales:{
+      x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#666'},max:5,min:0},
+      y:{grid:{display:false},ticks:{font:{size:10},color:'#444'}}
+    },
+    animation:{duration:1200,easing:'easeOutQuart'}
+  }
+});
+</script>
+</body>
+</html>

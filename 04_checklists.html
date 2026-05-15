@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Checklists</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;padding:24px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+.checklist{background:#fff;border:1px solid #e4e9f2;border-radius:12px;overflow:hidden}
+.cl-hd{padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .15s}
+.cl-hd:hover{background:#f9fafb}
+.cl-icon{font-size:20px}
+.cl-info{flex:1}
+.cl-info h3{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.cl-info p{font-size:10px;color:#999}
+.cl-arrow{font-size:18px;color:#aaa;transition:transform .25s}
+.cl-hd.open .cl-arrow{transform:rotate(180deg)}
+.cl-body{padding:0 20px 18px;display:none}
+.cl-body.open{display:block}
+.progress-wrap{margin:4px 0 14px}
+.progress-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.progress-label{font-size:10px;color:#6b7280}
+.progress-pct{font-size:10px;font-weight:600;color:#0a8c64}
+.progress-bar{height:5px;background:#e4e9f2;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#0a8c64,#1db88a);border-radius:3px;transition:width .5s ease;width:0%}
+.items{display:flex;flex-direction:column;gap:6px}
+.item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;background:#f9fafb;border:1px solid #e4e9f2;cursor:pointer;transition:all .15s}
+.item:hover{border-color:#b5d4f4;background:#e6f1fb}
+.item.done{background:#e1f5ee;border-color:#9fe1cb}
+.item.done .check{background:#0a8c64;border-color:#0a8c64}
+.item.done .check::after{opacity:1}
+.item.done .item-text{color:#aaa;text-decoration:line-through}
+.check{width:20px;height:20px;border-radius:6px;border:2px solid #d1d5db;background:#fff;flex-shrink:0;margin-top:1px;position:relative;transition:all .15s}
+.check::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;opacity:0;transition:opacity .15s}
+.item-text{font-size:11px;color:#1a1a2e;line-height:1.5;flex:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ONBOARDING -->
+  <div class="checklist" id="cl1">
+    <div class="cl-hd" onclick="toggle('cl1')">
+      <span class="cl-icon">👥</span>
+      <div class="cl-info"><h3>Onboarding checklist</h3><p>7 items · For new intern arrivals</p></div>
+      <span class="cl-arrow">▼</span>
+    </div>
+    <div class="cl-body">
+      <div class="progress-wrap">
+        <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">0 of 7 completed</span></div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+      <div class="items">
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">Added to department-specific onboarding Slack channel</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">Attended kickoff meeting (held every other Monday)</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">New intern invited to team Slack group channel</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">One-on-one meeting scheduled to clarify expectations</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">Added to relevant team workspaces (Notion, Google Drive)</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">New Intern Employee Form completed</span></div>
+        <div class="item" onclick="tick(this,'cl1')"><div class="check"></div><span class="item-text">Introduction made at All-Hands meeting</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFBOARDING -->
+  <div class="checklist" id="cl2">
+    <div class="cl-hd" onclick="toggle('cl2')">
+      <span class="cl-icon">🚪</span>
+      <div class="cl-info"><h3>Offboarding checklist</h3><p>8 items · For departing interns</p></div>
+      <span class="cl-arrow">▼</span>
+    </div>
+    <div class="cl-body">
+      <div class="progress-wrap">
+        <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">0 of 8 completed</span></div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+      <div class="items">
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Intern notified of upcoming end of term (14-day notice)</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Decision to offboard or extend confirmed</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Intern Status Change Approval Form submitted</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Slack access removed by P&C team</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Removed from Team Workspaces in Notion</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Google Drive access revoked</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Outstanding tasks reassigned to remaining team members</span></div>
+        <div class="item" onclick="tick(this,'cl2')"><div class="check"></div><span class="item-text">Exit questionnaire sent to departing intern</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKFORCE PLANNING -->
+  <div class="checklist" id="cl3">
+    <div class="cl-hd" onclick="toggle('cl3')">
+      <span class="cl-icon">📊</span>
+      <div class="cl-info"><h3>Workforce planning checklist</h3><p>8 items · For team capacity planning</p></div>
+      <span class="cl-arrow">▼</span>
+    </div>
+    <div class="cl-body">
+      <div class="progress-wrap">
+        <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">0 of 8 completed</span></div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+      <div class="items">
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Current team headcount reviewed</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Task timelines estimated (average hours per deliverable)</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Team workloads evaluated against project demands</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Performance benchmarks set using historical data</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Future headcount needs estimated based on project scope</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Workforce Planning Sheet updated and submitted to P&C</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Priority recruitment positions clearly flagged</span></div>
+        <div class="item" onclick="tick(this,'cl3')"><div class="check"></div><span class="item-text">Job descriptions reviewed and updated with P&C team</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggle(id){
+  const cl=document.getElementById(id);
+  const hd=cl.querySelector('.cl-hd');
+  const body=cl.querySelector('.cl-body');
+  hd.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+function tick(item,clId){
+  item.classList.toggle('done');
+  const cl=document.getElementById(clId);
+  const items=cl.querySelectorAll('.item');
+  const done=cl.querySelectorAll('.item.done').length;
+  const total=items.length;
+  const fill=cl.querySelector('.progress-fill');
+  const pct=cl.querySelector('.progress-pct');
+  fill.style.width=(done/total*100)+'%';
+  pct.textContent=done+' of '+total+' completed';
+  pct.style.color=done===total?'#0a8c64':'#6b7280';
+}
+</script>
+</body>
+</html>

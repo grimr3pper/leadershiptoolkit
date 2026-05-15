@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · Project Overview</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.wrap{width:100%;max-width:760px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid #e4e9f2;border-radius:14px;padding:24px 16px;text-align:center;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.stat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.stat::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.stat:nth-child(1)::before{background:#0f1f4a}
+.stat:nth-child(2)::before{background:#f0a500}
+.stat:nth-child(3)::before{background:#0a8c64}
+.stat:nth-child(4)::before{background:#7f77dd}
+.stat-n{font-size:36px;font-weight:700;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.stat:nth-child(1) .stat-n{color:#0f1f4a}
+.stat:nth-child(2) .stat-n{color:#f0a500}
+.stat:nth-child(3) .stat-n{color:#0a8c64}
+.stat:nth-child(4) .stat-n{color:#7f77dd}
+.stat-l{font-size:10.5px;color:#6b7280;line-height:1.4}
+.context{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctx{background:#fff;border:1px solid #e4e9f2;border-radius:12px;padding:16px}
+.ctx h3{font-size:11px;font-weight:600;color:#0f1f4a;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ctx p{font-size:10.5px;color:#6b7280;line-height:1.55}
+.ctx.gold{border-left:3px solid #f0a500}
+.ctx.navy{border-left:3px solid #0f1f4a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="n1">0</div><div class="stat-l">Managers & team leads researched</div></div>
+    <div class="stat"><div class="stat-n" id="n2">0</div><div class="stat-l">Leadership domains mapped</div></div>
+    <div class="stat"><div class="stat-n" id="n3">0</div><div class="stat-l">HR procedures documented</div></div>
+    <div class="stat"><div class="stat-n" id="n4">0</div><div class="stat-l">Core values translated into behaviours</div></div>
+  </div>
+
+  <div class="context">
+    <div class="ctx navy">
+      <h3>🔵 The gap</h3>
+      <p>No centralised guidance for managers. New team leads onboarding at pace with nothing to reference — every procedural question came back to People & Culture reactively.</p>
+    </div>
+    <div class="ctx gold">
+      <h3>🟡 The opportunity</h3>
+      <p>Build a practical, research-backed resource that reflected how leadership actually worked in a fast-moving AI startup — not a generic policy document nobody would read.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function animateCount(id, target, duration){
+  const el=document.getElementById(id);
+  const start=performance.now();
+  function update(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(ease*target);
+    if(progress<1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+window.addEventListener('load',()=>{
+  setTimeout(()=>animateCount('n1',18,1200),200);
+  setTimeout(()=>animateCount('n2',3,1000),400);
+  setTimeout(()=>animateCount('n3',6,1100),600);
+  setTimeout(()=>animateCount('n4',7,1100),800);
+});
+</script>
+</body>
+</html>

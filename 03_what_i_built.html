@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · What I Built</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;padding:24px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#fff;border:1px solid #e4e9f2;border-radius:12px;padding:18px}
+.card.full{grid-column:1/-1}
+.card-title{font-size:12px;font-weight:600;color:#0f1f4a;margin-bottom:3px}
+.card-sub{font-size:10px;color:#999;margin-bottom:14px}
+.domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.domain{border-radius:10px;padding:13px;border:1px solid #e4e9f2}
+.domain.tm{background:#e6f1fb;border-color:#b5d4f4}
+.domain.ip{background:#faeeda;border-color:#fac775}
+.domain.st{background:#e1f5ee;border-color:#9fe1cb}
+.domain h4{font-size:11px;font-weight:600;margin-bottom:6px}
+.domain.tm h4{color:#0c447c}
+.domain.ip h4{color:#633806}
+.domain.st h4{color:#085041}
+.domain ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.domain ul li{font-size:9.5px;color:#6b7280;padding-left:10px;position:relative;line-height:1.4}
+.domain ul li::before{content:'·';position:absolute;left:2px}
+.center{background:#0f1f4a;color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:11px;font-weight:600}
+.center span{color:#f0a500}
+.venn-wrap{display:flex;justify-content:center;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="card full">
+    <div class="card-title">Three-domain leadership model — Venn diagram</div>
+    <div class="card-sub">Effective leadership sits at the intersection of all three domains · Figure 3</div>
+    <div class="venn-wrap">
+      <svg width="420" height="260" viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/></filter>
+        </defs>
+        <!-- Three overlapping circles -->
+        <ellipse cx="175" cy="110" rx="110" ry="70" fill="rgba(14,68,124,0.13)" stroke="#0c447c" stroke-width="1.5" filter="url(#shadow)"/>
+        <ellipse cx="245" cy="110" rx="110" ry="70" fill="rgba(99,56,6,0.10)" stroke="#f0a500" stroke-width="1.5" filter="url(#shadow)"/>
+        <ellipse cx="210" cy="158" rx="90" ry="58" fill="rgba(8,80,65,0.10)" stroke="#0a8c64" stroke-width="1.5" filter="url(#shadow)"/>
+        <!-- Center -->
+        <ellipse cx="210" cy="128" rx="32" ry="22" fill="rgba(15,31,74,0.18)" stroke="none"/>
+        <!-- Labels -->
+        <text x="118" y="88" text-anchor="middle" font-size="11" font-weight="600" fill="#0c447c">Team</text>
+        <text x="118" y="102" text-anchor="middle" font-size="11" font-weight="600" fill="#0c447c">Management</text>
+        <text x="302" y="88" text-anchor="middle" font-size="11" font-weight="600" fill="#633806">Interpersonal</text>
+        <text x="210" y="222" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Strategic</text>
+        <!-- Center label -->
+        <text x="210" y="124" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">Effective</text>
+        <text x="210" y="136" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">Leadership</text>
+        <!-- Small items in each segment -->
+        <text x="105" y="118" text-anchor="middle" font-size="8" fill="#0c447c">Delegation</text>
+        <text x="105" y="130" text-anchor="middle" font-size="8" fill="#0c447c">SMART Goals</text>
+        <text x="315" y="118" text-anchor="middle" font-size="8" fill="#633806">Feedback</text>
+        <text x="315" y="130" text-anchor="middle" font-size="8" fill="#633806">Trust</text>
+        <text x="210" y="192" text-anchor="middle" font-size="8" fill="#085041">Knowledge sharing</text>
+        <text x="210" y="204" text-anchor="middle" font-size="8" fill="#085041">Stakeholders</text>
+      </svg>
+    </div>
+    <div class="center">⭐ Effective Leadership — <span>where all three domains intersect</span>: Delegation · Collaboration · Stakeholder Management</div>
+  </div>
+
+  <div class="domain-grid">
+    <div class="domain tm">
+      <h4>🔵 Team Management</h4>
+      <ul>
+        <li>Intern check-ins</li>
+        <li>Remote working</li>
+        <li>SMART goals</li>
+        <li>Delegation</li>
+        <li>Conflict resolution</li>
+        <li>Cross-collaboration</li>
+        <li>Workload balance</li>
+        <li>Trust building</li>
+      </ul>
+    </div>
+    <div class="domain ip">
+      <h4>🟡 Interpersonal</h4>
+      <ul>
+        <li>Clear vision</li>
+        <li>Effective communication</li>
+        <li>Constructive feedback</li>
+        <li>Trust-building</li>
+        <li>Inclusive culture</li>
+        <li>Lead by example</li>
+        <li>Conflict resolution</li>
+      </ul>
+    </div>
+    <div class="domain st">
+      <h4>🟢 Strategic</h4>
+      <ul>
+        <li>Knowledge transfer</li>
+        <li>Standard procedures</li>
+        <li>Task allocation</li>
+        <li>Stakeholder mgmt</li>
+        <li>Workforce planning</li>
+        <li>Project management</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card full">
+    <div class="card-title">Principles per domain</div>
+    <div class="card-sub">Bar chart showing the number of key principles documented in each leadership domain</div>
+    <div style="position:relative;height:160px"><canvas id="domainBar"></canvas></div>
+  </div>
+
+</div>
+<script>
+new Chart(document.getElementById('domainBar'),{
+  type:'bar',
+  data:{
+    labels:['Team Management','Interpersonal','Strategic'],
+    datasets:[{
+      data:[8,7,6],
+      backgroundColor:['#0c447c','#f0a500','#0a8c64'],
+      borderRadius:7,borderSkipped:false
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.y+' key principles'}}},
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:11},color:'#444'}},
+      y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{stepSize:1,font:{size:10},color:'#666'},max:10,min:0}
+    },
+    animation:{duration:1200,easing:'easeOutQuart'}
+  }
+});
+</script>
+</body>
+</html>

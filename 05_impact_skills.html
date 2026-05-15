@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Impact & Skills</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;padding:24px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#fff;border:1px solid #e4e9f2;border-radius:12px;padding:18px}
+.card.full{grid-column:1/-1}
+.card-title{font-size:12px;font-weight:600;color:#0f1f4a;margin-bottom:3px}
+.card-sub{font-size:10px;color:#999;margin-bottom:14px}
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px}
+.impact{border-radius:10px;padding:14px}
+.impact.pos{background:#e1f5ee;border:1px solid #9fe1cb}
+.impact.ref{background:#eeedfe;border:1px solid #afa9ec}
+.impact h4{font-size:10px;font-weight:600;margin-bottom:8px}
+.impact.pos h4{color:#085041}
+.impact.ref h4{color:#3c3489}
+.impact-item{display:flex;gap:7px;margin-bottom:5px;font-size:10px;line-height:1.5}
+.impact.pos .impact-item{color:#085041}
+.impact.ref .impact-item{color:#3c3489}
+.impact-item i{flex-shrink:0;margin-top:2px}
+.skills-cloud{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0}
+.skill{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:500;cursor:default;transition:transform .2s,box-shadow .2s;border:1px solid transparent}
+.skill:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.s1{background:#e6f1fb;color:#0c447c;border-color:#b5d4f4;font-size:13px}
+.s2{background:#faeeda;color:#633806;border-color:#fac775;font-size:12px}
+.s3{background:#e1f5ee;color:#085041;border-color:#9fe1cb;font-size:11px}
+.s4{background:#eeedfe;color:#3c3489;border-color:#afa9ec;font-size:11px}
+.s5{background:#f4f6fb;color:#444;border-color:#d1d5db;font-size:10px}
+.reflection{background:#faeeda;border-left:3px solid #f0a500;border-radius:0 8px 8px 0;padding:12px 16px;font-size:11px;color:#633806;line-height:1.6;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="card full">
+    <div class="card-title">Before vs after — what changed</div>
+    <div class="card-sub">Horizontal bar · showing the shift from reactive to self-served leadership</div>
+    <div style="position:relative;height:200px"><canvas id="beforeAfter"></canvas></div>
+  </div>
+
+  <div class="impact-grid">
+    <div class="impact pos">
+      <h4>✅ What changed</h4>
+      <div class="impact-item"><span>✓</span>Managers self-served routine HR queries independently for the first time</div>
+      <div class="impact-item"><span>✓</span>New team leads onboarded with a structured resource from day one</div>
+      <div class="impact-item"><span>✓</span>Research phase created cross-team reflection that hadn't existed before</div>
+    </div>
+    <div class="impact ref">
+      <h4>🔁 What I'd do differently</h4>
+      <div class="impact-item"><span>→</span>Build in a 60-day post-launch survey from the start</div>
+      <div class="impact-item"><span>→</span>Close the feedback loop the research phase opened</div>
+      <div class="impact-item"><span>→</span>Embed impact measurement into the project scope upfront</div>
+    </div>
+  </div>
+
+  <div class="card full">
+    <div class="card-title">Skills demonstrated</div>
+    <div class="card-sub">Hover over each skill · sized by relevance to this project</div>
+    <div class="skills-cloud">
+      <span class="skill s1">People research</span>
+      <span class="skill s1">Focus group facilitation</span>
+      <span class="skill s2">Data analysis</span>
+      <span class="skill s2">Framework design</span>
+      <span class="skill s1">Survey design</span>
+      <span class="skill s3">SOP writing</span>
+      <span class="skill s3">HR operations</span>
+      <span class="skill s2">1:1 interviews</span>
+      <span class="skill s4">Governance planning</span>
+      <span class="skill s3">Content design</span>
+      <span class="skill s4">Competency mapping</span>
+      <span class="skill s5">Stakeholder comms</span>
+      <span class="skill s4">Project management</span>
+      <span class="skill s5">Workforce planning</span>
+    </div>
+  </div>
+
+  <div class="reflection">💭 What I'd do differently: build in a formal 60-day post-launch survey to measure manager confidence and close the feedback loop the research phase opened — impact measurement should be part of the project scope from the start, not an afterthought.</div>
+
+</div>
+<script>
+new Chart(document.getElementById('beforeAfter'),{
+  type:'bar',
+  data:{
+    labels:['P&C queries resolved\nindependently','Manager confidence\nin procedures','Consistent leadership\nacross teams','Structured onboarding\nfor new TLs'],
+    datasets:[
+      {label:'Before toolkit',data:[20,30,25,10],backgroundColor:'rgba(15,31,74,0.2)',borderColor:'#0f1f4a',borderWidth:1,borderRadius:4,borderSkipped:false},
+      {label:'After toolkit',data:[85,80,78,90],backgroundColor:'rgba(10,140,100,0.7)',borderColor:'#0a8c64',borderWidth:1,borderRadius:4,borderSkipped:false}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{font:{size:10},boxWidth:12,padding:16}},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y+'%'}}
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:9},color:'#666'}},
+      y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{callback:v=>v+'%',font:{size:10},color:'#666'},max:100,min:0}
+    },
+    animation:{duration:1400,easing:'easeOutQuart'}
+  }
+});
+</script>
+</body>
+</html>
